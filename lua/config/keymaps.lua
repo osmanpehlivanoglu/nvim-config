@@ -28,6 +28,19 @@ vim.keymap.set('n', '<S-l>', ':BufferLineCycleNext<CR>', { noremap = true, silen
 vim.keymap.set('n', '<S-j>', ':BufferLineMoveNext<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<S-k>', ':BufferLineMovePrev<CR>', { noremap = true, silent = true })
 
+-- Aktif buffer'ı kapat ve öncekine geç
+vim.keymap.set('n', '<leader>bd', ':bp | bd #<CR>', { desc = 'Bufferı kapat ve öncekine geç' })
+
+-- Tüm buffer'ları kapat
+vim.keymap.set('n', '<leader>ba', ':%bd<CR>', { desc = 'Tüm bufferları kapat' })
+
+-- Sonraki / önceki buffer
+vim.keymap.set('n', '<leader>bn', ':bn<CR>', { desc = 'Sonraki buffer' })
+vim.keymap.set('n', '<leader>bp', ':bp<CR>', { desc = 'Önceki buffer' })
+
+-- Önceki buffer'a geç (en son ziyaret edilen)
+vim.keymap.set('n', '<leader>bl', '<C-^>', { desc = 'Son kullanılan buffer' })
+
 -- C dosyası çalıştır (F5 ile)
 vim.api.nvim_create_user_command('CompileRunC', function()
   vim.cmd 'write'

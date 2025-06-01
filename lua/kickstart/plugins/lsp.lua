@@ -65,7 +65,7 @@ return {
           },
         },
         intelephense = {},
-        volar = { filetypes = { 'vue' } },
+        vls = { filetypes = { 'vue' } },
         clangd = {
           cmd = { 'clangd', '--offset-encoding=utf-16', '--clang-tidy' },
         },

@@ -16,6 +16,12 @@ return {
       },
       filters = {
         dotfiles = false,
+        git_clean = false,
+        custom = {},
+      },
+      git = {
+        enable = true,
+        ignore = false, -- .gitignore içinde olan dosyalar da görünsün
       },
     }
 
@@ -23,6 +29,15 @@ return {
       noremap = true,
       silent = true,
       desc = 'NvimTree toggle',
+    })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = 'NvimTree',
+      callback = function()
+        vim.keymap.set('n', 'H', function()
+          require('nvim-tree.api').tree.toggle_hidden_filter()
+        end, { buffer = true, desc = 'Toggle hidden files' })
+      end,
     })
   end,
 }
