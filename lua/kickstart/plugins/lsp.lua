@@ -17,41 +17,39 @@ return {
           vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
         end
 
+        -- LSP keymaps
         nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
         nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
         nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
         nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
         nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
         nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
         nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
         nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
-
         nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
         nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
+        -- Format command
         vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
           vim.lsp.buf.format()
         end, { desc = 'Format current buffer with LSP' })
+
+        -- Which-key mappings (yeni format)
         local wk = require 'which-key'
-        wk.register({
-          g = {
-            d = 'Tanıma git',
-            r = 'Nerede kullanılmış?',
-            I = 'Implementasyona git',
-          },
-          ['<leader>'] = {
-            rn = 'Yeniden adlandır',
-            ca = 'Kod aksiyonu',
-            ds = 'Döküman sembolleri',
-            ws = 'Çalışma alanı sembolleri',
-            th = 'İpucu gösterimini değiştir',
-            D = 'Tip tanımı',
-          },
-          K = 'Hover dokümanı',
-          ['<C-k>'] = 'İmza dokümanı',
-          ['<F5>'] = 'C dosyasını çalıştır',
-        }, { buffer = bufnr })
+        wk.add {
+          { '<C-k>', desc = 'İmza dokümanı', buffer = bufnr },
+          { '<F5>', desc = 'C dosyasını çalıştır', buffer = bufnr },
+          { '<leader>D', desc = 'Tip tanımı', buffer = bufnr },
+          { '<leader>ca', desc = 'Kod aksiyonu', buffer = bufnr },
+          { '<leader>ds', desc = 'Döküman sembolleri', buffer = bufnr },
+          { '<leader>rn', desc = 'Yeniden adlandır', buffer = bufnr },
+          { '<leader>th', desc = 'İpucu gösterimini değiştir', buffer = bufnr },
+          { '<leader>ws', desc = 'Çalışma alanı sembolleri', buffer = bufnr },
+          { 'K', desc = 'Hover dokümanı', buffer = bufnr },
+          { 'gI', desc = 'Implementasyona git', buffer = bufnr },
+          { 'gd', desc = 'Tanıma git', buffer = bufnr },
+          { 'gr', desc = 'Nerede kullanılmış?', buffer = bufnr },
+        }
       end
 
       local servers = {
@@ -94,6 +92,7 @@ return {
           end,
         },
       }
+
       require('lspconfig').vtsls.setup {
         capabilities = capabilities,
         on_attach = on_attach,

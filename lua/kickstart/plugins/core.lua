@@ -43,6 +43,15 @@ return {
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { 'gs', group = '[S]urround' },
+        -- Mini.surround mappings için açıklamalar
+        { 'gsa', group = 'Ekle (add surround)' },
+        { 'gsd', group = 'Sil (delete surround)' },
+        { 'gsf', group = 'Sağda bul (find right)' },
+        { 'gsF', group = 'Solda bul (find left)' },
+        { 'gsh', group = 'Vurgula (highlight)' },
+        { 'gsr', group = 'Değiştir (replace)' },
+        { 'gsn', group = 'Satır sayısını güncelle' },
       },
     },
   },
@@ -58,7 +67,18 @@ return {
     'echasnovski/mini.nvim',
     config = function()
       require('mini.ai').setup { n_lines = 500 }
-      require('mini.surround').setup()
+
+      require('mini.surround').setup {
+        mappings = {
+          add = 'gsa',
+          delete = 'gsd',
+          find = 'gsf',
+          find_left = 'gsF',
+          highlight = 'gsh',
+          replace = 'gsr',
+          update_n_lines = 'gsn',
+        },
+      }
       local statusline = require 'mini.statusline'
       statusline.setup { use_icons = vim.g.have_nerd_font }
       statusline.section_location = function()
